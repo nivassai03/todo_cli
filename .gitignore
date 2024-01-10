@@ -1,4 +1,5 @@
 data.json
+.vs/
 build/
 .cache/
 *.log
