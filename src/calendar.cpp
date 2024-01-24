@@ -1,4 +1,5 @@
 #include "calendar.h"
+#include <bits/chrono.h>
 #include <chrono>
 #include <iomanip>
 #include <unordered_map>
@@ -6,45 +7,30 @@
 
 using namespace std::chrono;
 
-void populate_with_days(Year &y) {
-  for (Month &m : y.m_months_in_year) {
-    year_month_day_last ymdl{last / m.m_month / y.m_year};
-    for (day d{1}; d <= ymdl.day(); d++) {
-      Day d_day;
-      d_day.m_day = d;
-      d_day.m_weekday = weekday{d / m.m_month / y.m_year};
-      m.m_days_in_month.push_back(d_day);
+std::unordered_map<int,Year> get_cal(int start_year,int end_year){
+  std::unordered_map<int, Year> cal;
+  for(int yr = start_year;yr<=end_year;yr++){
+    Year temp_year;
+    temp_year.m_year = year{yr};
+    for(unsigned mn = 1;mn<=12;mn++){
+      Month temp_month;
+      temp_month.m_month = month{mn};
+      temp_year.m_months_in_year.push_back(temp_month);
     }
+    for(Month &m:temp_year.m_months_in_year){
+      year_month_day_last ymdl{last/m.m_month/temp_year.m_year};
+      for(day d{1};d<=ymdl.day();d++){
+        Day dy;
+        dy.m_day = d;
+        dy.m_weekday = weekday{d/m.m_month/temp_year.m_year};
+        m.m_days_in_month.push_back(dy);
+      }
+    }
+    cal[yr] = temp_year;
   }
+  return cal;
 }
 
-void populate_with_months(Year &y) {
-  for (unsigned i = 1; i <= 12; i++) {
-    Month m;
-    m.m_month = month{i};
-    y.m_months_in_year.push_back(m);
-  }
-}
-
-Year init_year(const year &y) {
-  Year cal_year;
-  cal_year.m_year = y;
-  populate_with_months(cal_year);
-  populate_with_days(cal_year);
-  return cal_year;
-}
-
-Cal::Cal() : start_year(2000), end_year(2050) {
-}
-Cal::Cal(int s_year, int e_year) : start_year(s_year), end_year(e_year) {
-}
-
-void Cal::init_cal() {
-  for (int i = start_year; i <= end_year; i++) {
-    Year y = init_year(year{i});
-    cal_year.insert(std::make_pair(i, y));
-  }
-}
 
 std::string get_month_strings(unsigned m) {
   switch (m) {
@@ -133,8 +119,6 @@ std::string get_weekday_strings(unsigned w) {
     return std::string("");
   }
 }
-
-std::unordered_map<int, Year> Cal::get_cal() { return cal_year; }
 
 YearMonthDay get_current_date() {
 

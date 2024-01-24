@@ -27,21 +27,7 @@ struct YearMonthDay {
   std::chrono::weekday c_weekday;
 };
 
-class Cal {
-public:
-  Cal();
-  Cal(int s_year, int e_year);
-  void init_cal();
-  std::unordered_map<int, Year> get_cal();
-
-private:
-  std::unordered_map<int, Year> cal_year;
-  int start_year;
-  int end_year;
-};
-
-void populate_with_days(Year &y);
-void populate_with_months(Year &y);
+std::unordered_map<int,Year> get_cal(int start_year,int end_year);
 std::string get_month_strings(unsigned m);
 std::string get_weekday_strings(unsigned w);
 YearMonthDay get_current_date();

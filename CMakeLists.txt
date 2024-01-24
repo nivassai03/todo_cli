@@ -4,6 +4,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE "Release")
 
 include(FetchContent)
 
@@ -30,17 +31,6 @@ add_executable(todo)
 
 target_sources(todo PRIVATE src/main.cpp src/calendar.h src/calendar.cpp src/date_selection.h src/date_selection.cpp src/date_display.cpp src/date_display.h src/db.h src/db.cpp src/todo_create.h src/todo_create.cpp src/todo_item.h src/todo_list.h src/todo_list.cpp src/todo_list_due.cpp src/todo_list_due.h)
 
-# if(CMAKE_BUILD_TYPE MATCHES "Debug")
-#   set(
-#     CMAKE_C_FLAGS
-#     "${CMAKE_C_FLAGS} -Wall -Werror -fsanitize=undefined -fsanitize=address"
-#   )
-#   target_link_options(todo
-#     BEFORE PUBLIC -fsanitize=undefined PUBLIC -fsanitize=address
-#   )
-# endif()
-
-target_compile_options(todo PRIVATE -Wpedantic -Wconversion)
-
+#target_compile_options(todo PRIVATE -Wpedantic -Wconversion)
 
 target_link_libraries(todo PRIVATE ftxui::screen ftxui::dom ftxui::component nlohmann_json::nlohmann_json)
