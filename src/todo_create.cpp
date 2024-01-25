@@ -10,7 +10,8 @@ using namespace ftxui;
 TodoCreate::TodoCreate(Ref<YearMonthDay> ymd, Ref<TodoDB> db, Decorator c_size,
                        bool init_state = false)
     : m_ymd(ymd), m_tododb(db), m_todoinitstate(false), m_size(c_size) {
-  Add(generate_create_todo());
+  m_create_todo_component = generate_create_todo();
+  Add(m_create_todo_component);
 }
 
 Component TodoCreate::generate_create_todo() {
@@ -38,8 +39,8 @@ Component TodoCreate::generate_create_todo() {
 }
 
 void TodoCreate::redraw_create_todo() {
-  ComponentBase::DetachAllChildren();
-  Add(generate_create_todo());
+  m_create_todo_component = generate_create_todo();
+
 }
 
 Element TodoCreate::Render() { return ComponentBase::Render() | m_size; }

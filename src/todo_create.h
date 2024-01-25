@@ -17,6 +17,7 @@ private:
   ftxui::Decorator m_size;
   ftxui::Ref<TodoDB> m_tododb;
   void redraw_create_todo();
+  ftxui::Component m_create_todo_component;
   ftxui::Component generate_create_todo();
   void addNewTodo();
 };
