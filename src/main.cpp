@@ -18,10 +18,9 @@ struct DateLocation {
 
 int main() {
 
+
   auto screen = ScreenInteractive::Fullscreen();
-  // initialize Cal Object
-  Cal cal;
-  cal.init_cal();
+
 
   // DateLocation
   DateLocation dxy;
@@ -29,14 +28,14 @@ int main() {
 
   // intialize db
   TodoDB db;
-  db.init("data.json");
+  db.init("todo.json");
 
   // Setup date object(state)
   YearMonthDay ymd;
   ymd = get_current_date();
 
   // Calendar Widget
-  std::unordered_map<int, Year> cal_years = cal.get_cal();
+  std::unordered_map<int, Year> cal_years = get_cal(2000,2050);
   auto cal_widget =
       CalendarWidget(cal_years, ymd.c_year, ymd.c_month, ymd.c_day, &dxy.x, &dxy.y,
                      size(WIDTH, EQUAL, 10), size(HEIGHT, EQUAL, 2),
