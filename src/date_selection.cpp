@@ -1,6 +1,4 @@
-#include <algorithm>
 #include <chrono>
-#include <memory>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -27,7 +25,8 @@ Calendar::Calendar(std::unordered_map<int, Year> c_years, year cal_year,
   update_current_year(m_year);
   update_current_month(m_month);
   update_current_day_and_weekday(m_day);
-  Add(generate_dates_component());
+  m_date_display = generate_dates_component();
+  Add(m_date_display);
 }
 
 Element Calendar::Render() {
@@ -46,8 +45,7 @@ Element Calendar::Render() {
                     emptyElement() | size(HEIGHT, EQUAL, 1), weekdays_header,
                     emptyElement() | size(HEIGHT, EQUAL, 2),
 		     ComponentBase::Render(),
-                })}) |
-         m_cal_size | bold;
+           })})| m_cal_size | bold;
 }
 
 void Calendar::update_current_year(year y) { m_ymd->c_year = y; }
@@ -98,8 +96,6 @@ Component Calendar::generate_dates_component() {
         if (d.m_weekday == Sunday && static_cast<unsigned>(d.m_day) != 1u) {
           DaysRow.push_back(Container::Horizontal(weekRow, &m_hselector()));
           weekRow.clear();
-          // std::fill(weekRow.begin(), weekRow.end(),
-          //           Renderer(emptyElement) | m_date_size | m_date_height);
         }
         unsigned idx = static_cast<unsigned>(d.m_weekday.c_encoding());
         if (static_cast<unsigned>(d.m_day) == 1u) {
@@ -153,8 +149,9 @@ Component Calendar::generate_dates_component() {
   return Renderer([=]{return text("Date Not Found"+std::to_string(year_str));});
 }
 void Calendar::redraw_cal() {
-  ComponentBase::DetachAllChildren();
-  Add(generate_dates_component());
+  DetachAllChildren();
+  m_date_display = generate_dates_component();
+  Add(m_date_display);
 }
 
 Component CalendarWidget(std::unordered_map<int, Year> &cal_year, year yr,

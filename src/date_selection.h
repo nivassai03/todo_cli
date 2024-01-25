@@ -38,6 +38,7 @@ private:
   ftxui::Decorator m_date_height;
   ftxui::Decorator m_cal_size;
   ftxui::Ref<YearMonthDay> m_ymd;
+  ftxui::Component m_date_display;
 
   void update_current_year(std::chrono::year y);
   void update_current_month(std::chrono::month m);
