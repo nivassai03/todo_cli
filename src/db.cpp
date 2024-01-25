@@ -1,8 +1,10 @@
 #include "db.h"
 #include "calendar.h"
 #include <chrono>
+#include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <ostream>
 
 using json = nlohmann::json;
 
@@ -32,7 +34,15 @@ void TodoDB::addTodo(const std::string &date, const std::string &label,
 }
 
 void TodoDB::init(const std::string &filename) {
-  m_filename = filename;
+  std::string homeDir(std::getenv("HOME"));
+  if (homeDir.empty()) {
+    return;
+  }
+  std::filesystem::path fullPath(homeDir);
+  fullPath /= ".todo-cli";
+  fullPath /= filename;
+  m_filename = fullPath.string();
+  std::filesystem::create_directories(fullPath.parent_path());
   if (!std::filesystem::exists(m_filename)) {
     std::ofstream createFile(m_filename);
     createFile << "{}";
@@ -86,6 +96,25 @@ json TodoDB::getIncompleteTaskForPastWeek() {
       if (!incompleteTasks.empty()) {
         incomplete_tasks_list[cur_date_str] = incompleteTasks;
       }
+    }
+  }
+  return incomplete_tasks_list;
+}
+
+json TodoDB::getIncompleteTasksAll() {
+  json incomplete_tasks_list;
+  json m_todos = parse_db();
+  for (const auto &date_entry : m_todos.items()) {
+    const std::string &cur_date_str = date_entry.key();
+    const json &tasks = date_entry.value();
+    json incompleteTasks;
+    for (const auto &task : tasks) {
+      if (task.value("is_done", true)==false) {
+        incompleteTasks.push_back(task);
+      }
+    }
+    if (!incompleteTasks.empty()) {
+      incomplete_tasks_list[cur_date_str] = incompleteTasks;
     }
   }
   return incomplete_tasks_list;

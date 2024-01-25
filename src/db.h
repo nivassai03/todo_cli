@@ -22,6 +22,7 @@ public:
   isDBUpdatedNMilliSecAgo(std::chrono::system_clock::time_point currentTime,
                           std::chrono::milliseconds n);
   nlohmann::json getIncompleteTaskForPastWeek();
+  nlohmann::json getIncompleteTasksAll(); 
   nlohmann::json parse_db();
 
 private:
