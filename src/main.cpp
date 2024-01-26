@@ -52,7 +52,7 @@ int main() {
 
   auto incomplete_tasks_header = text("Due Tasks") | bold | center |
                                  bgcolor(Color::Red) | border |
-                                 size(WIDTH, EQUAL, 70);
+                                 size(WIDTH, GREATER_THAN, 70);
 
   auto incomplete_tasks = TDListWidget(&ymd, &db, size(WIDTH, EQUAL, 70));
 
