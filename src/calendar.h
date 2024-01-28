@@ -6,35 +6,35 @@
 #include <vector>
 
 struct Day {
-  std::chrono::day m_day;
-  std::chrono::weekday m_weekday;
+	std::chrono::day m_day;
+	std::chrono::weekday m_weekday;
 };
 
 struct Month {
-  std::chrono::month m_month;
-  std::vector<Day> m_days_in_month;
+	std::chrono::month m_month;
+	std::vector<Day> m_days_in_month;
 };
 
 struct Year {
-  std::chrono::year m_year;
-  std::vector<Month> m_months_in_year;
+	std::chrono::year m_year;
+	std::vector<Month> m_months_in_year;
 };
 
 struct YearMonthDay {
-  std::chrono::year c_year;
-  std::chrono::month c_month;
-  std::chrono::day c_day;
-  std::chrono::weekday c_weekday;
+	std::chrono::year c_year;
+	std::chrono::month c_month;
+	std::chrono::day c_day;
+	std::chrono::weekday c_weekday;
 };
 
-std::unordered_map<int,Year> get_cal(int start_year,int end_year);
+std::unordered_map<int, Year> get_cal(int start_year, int end_year);
 std::string get_month_strings(unsigned m);
 std::string get_weekday_strings(unsigned w);
 YearMonthDay get_current_date();
-std::string get_date_string_format(const YearMonthDay &ymd);
-bool isDateLessThanToday(const YearMonthDay &lhs, const YearMonthDay &rhs);
+std::string get_date_string_format(const YearMonthDay& ymd);
+bool isDateLessThanToday(const YearMonthDay& lhs, const YearMonthDay& rhs);
 YearMonthDay Chrono_To_YMD(std::chrono::year_month_day ymd);
 std::chrono::year_month_day YMD_To_Chrono(YearMonthDay ymd);
-YearMonthDay get_date_ymd_format(const std::string &d);
+YearMonthDay get_date_ymd_format(const std::string& d);
 
 #endif

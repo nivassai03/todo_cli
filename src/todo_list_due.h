@@ -9,31 +9,31 @@
 
 class TDList : public ftxui::ComponentBase {
 public:
-  TDList(ftxui::Ref<YearMonthDay> ymd, ftxui::Ref<TodoDB> db,
-         ftxui::Decorator list_size);
-  ftxui::Element Render() override;
+	TDList(ftxui::Ref<YearMonthDay> ymd, ftxui::Ref<TodoDB> db,
+		ftxui::Decorator list_size);
+	ftxui::Element Render() override;
 
 private:
-  nlohmann::json m_todo_list;
-  ftxui::Ref<YearMonthDay> m_ymd;
-  std::unordered_map<std::string, Todo> m_map_todo;
-  YearMonthDay m_prev_ymd;
-  ftxui::Decorator m_list_size;
-  ftxui::Component m_due_todolist_component;
-  ftxui::Component m_pastweek_due;
-  ftxui::Component m_all_due;
-  int m_tab_selected;
-  ftxui::Component generate_due_todolist();
-  ftxui::Component generate_pastweek_due_todolist();
-  ftxui::Component generate_all_due_todolist();
-  ftxui::Ref<TodoDB> m_tododb;
-  void updateTodo(const std::string &ymd, const std::string &label,
-                  const bool &b);
-  void update_and_save();
-  void redraw_todolist();
-  bool date_changed();
+	nlohmann::json m_todo_list;
+	ftxui::Ref<YearMonthDay> m_ymd;
+	std::unordered_map<std::string, Todo> m_map_todo;
+	YearMonthDay m_prev_ymd;
+	ftxui::Decorator m_list_size;
+	ftxui::Component m_due_todolist_component;
+	ftxui::Component m_pastweek_due;
+	ftxui::Component m_all_due;
+	int m_tab_selected;
+	ftxui::Component generate_due_todolist();
+	ftxui::Component generate_pastweek_due_todolist();
+	ftxui::Component generate_all_due_todolist();
+	ftxui::Ref<TodoDB> m_tododb;
+	void updateTodo(const std::string& ymd, const std::string& label,
+		const bool& b);
+	void update_and_save();
+	void redraw_todolist();
+	bool date_changed();
 };
-ftxui::Component TDListWidget(YearMonthDay *ymd, TodoDB *db,
-                              ftxui::Decorator list_size);
+ftxui::Component TDListWidget(YearMonthDay* ymd, TodoDB* db,
+	ftxui::Decorator list_size);
 
 #endif // TOLD_H_

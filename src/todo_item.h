@@ -5,9 +5,9 @@
 #include <string>
 
 struct Todo {
-  std::string m_label;
-  bool m_is_done;
-  YearMonthDay m_deadline;
+	std::string m_label;
+	bool m_is_done;
+	YearMonthDay m_deadline;
 };
 
 #endif
