@@ -1,5 +1,6 @@
 data.json
 .vs/
+.vscode/
 build/
 .cache/
 CMakeSettings.json
