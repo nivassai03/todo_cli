@@ -6,8 +6,11 @@ A simple terminal based todo-list application.
 - Low memory usage.
 
 ## Screenshots
-![todo_cli1](https://github.com/nivassai03/todo_cli/assets/116424621/8fc66097-0ecf-48ce-9d4b-62dc20dd6708)
-![todo_cli2](https://github.com/nivassai03/todo_cli/assets/116424621/2ab62e15-f77d-47e4-9f7d-f12db96fdec7)
+![todo_cli1](https://github.com/nivassai03/todo_cli/assets/116424621/c85a2cf3-87e9-4884-81b9-240c5484e30e)
+
+
+![todo_cli2](https://github.com/nivassai03/todo_cli/assets/116424621/ed526d4e-9974-4a26-aa97-2d7dcbe7ae5c)
+
 
 ## Installation
 
